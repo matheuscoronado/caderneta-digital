@@ -27,3 +27,17 @@ Este projeto visa substituir a caderneta física dos alunos por uma plataforma d
 - **Ferramentas**: GitHub, VS Code
 
 ---
+
+## 🧪 Protótipo Inicial
+
+⚠️ Este projeto se encontra em sua **versão inicial** e representa um **protótipo de baixa fidelidade**.  
+Seu objetivo é demonstrar a proposta funcional da aplicação, com foco em estrutura e fluxo de navegação.  
+Melhorias visuais, integrações e recursos avançados ainda estão em desenvolvimento.
+
+---
+
+<p align="center">
+  <a href="https://backuptrabalho1212.github.io/MedNotes/" target="_blank">
+    <img src="https://img.shields.io/badge/🔗 Ver%20Projeto%20Online-007ACC?style=for-the-badge&logo=github&logoColor=white" alt="Ver Projeto Online" />
+  </a>
+</p>
