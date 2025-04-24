@@ -34,6 +34,8 @@ Este projeto visa substituir a caderneta física dos alunos por uma plataforma d
 Seu objetivo é demonstrar a proposta funcional da aplicação, com foco em estrutura e fluxo de navegação.  
 Melhorias visuais, integrações e recursos avançados ainda estão em desenvolvimento.
 
+Credenciais padrão: medico@exemplo.com / senha123
+
 ---
 
 <p align="center">
