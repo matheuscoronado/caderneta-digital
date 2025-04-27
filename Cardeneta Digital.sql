@@ -149,3 +149,21 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+-- Trigger para registrar alterações na tabela Curso
+DELIMITER $$
+CREATE TRIGGER log_update_curso
+AFTER UPDATE ON Curso
+FOR EACH ROW
+BEGIN
+    INSERT INTO Log_Alteracoes (tabela, id_registro, acao, data_alteracao, detalhes)
+    VALUES (
+        'Curso',
+        OLD.id_curso,
+        'UPDATE',
+        NOW(),
+        CONCAT('Nome alterado de "', OLD.nome, '" para "', NEW.nome, '", ',
+               'Descrição alterada.')
+    );
+END$$
+DELIMITER ;
