@@ -76,6 +76,16 @@ CREATE TABLE Log_Alteracoes (
     detalhes TEXT
 );
 
+-- Criação da tabela de Histórico de Nomes
+CREATE TABLE Historico_Nomes (
+    id_historico INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT NOT NULL,
+    nome_antigo VARCHAR(100) NOT NULL,
+    nome_novo VARCHAR(100) NOT NULL,
+    data_alteracao DATETIME NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
 -- TRIGGERS
 
 -- Trigger para validar nota no Feedback
