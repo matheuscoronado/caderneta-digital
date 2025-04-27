@@ -113,3 +113,13 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+-- Trigger para atualizar data de modificação em Anotacao
+DELIMITER $$
+CREATE TRIGGER update_data_anotacao
+BEFORE UPDATE ON Anotacao
+FOR EACH ROW
+BEGIN
+    SET NEW.data_anotacao = CURDATE();
+END$$
+DELIMITER ;
