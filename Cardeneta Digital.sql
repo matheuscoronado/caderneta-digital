@@ -101,3 +101,15 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+-- Trigger para preencher data padrão em Feedback
+DELIMITER $$
+CREATE TRIGGER set_default_feedback_date
+BEFORE INSERT ON Feedback
+FOR EACH ROW
+BEGIN
+    IF NEW.data_feedback IS NULL THEN
+        SET NEW.data_feedback = CURDATE();
+    END IF;
+END$$
+DELIMITER ;
