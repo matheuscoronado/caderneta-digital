@@ -220,3 +220,21 @@ BEGIN
     );
 END$$
 DELIMITER ;
+
+-- Trigger para registrar alterações na tabela Anotacao
+DELIMITER $$
+CREATE TRIGGER log_update_anotacao
+AFTER UPDATE ON Anotacao
+FOR EACH ROW
+BEGIN
+    INSERT INTO Log_Alteracoes (tabela, id_registro, acao, data_alteracao, detalhes)
+    VALUES (
+        'Anotacao',
+        OLD.id_anotacao,
+        'UPDATE',
+        NOW(),
+        CONCAT('Conteúdo alterado.')
+    );
+END$$
+DELIMITER ;
+
