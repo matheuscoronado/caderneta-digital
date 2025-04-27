@@ -203,3 +203,20 @@ BEGIN
     );
 END$$
 DELIMITER ;
+
+-- Trigger para registrar alterações na tabela Docente
+DELIMITER $$
+CREATE TRIGGER log_update_docente
+AFTER UPDATE ON Docente
+FOR EACH ROW
+BEGIN
+    INSERT INTO Log_Alteracoes (tabela, id_registro, acao, data_alteracao, detalhes)
+    VALUES (
+        'Docente',
+        OLD.id_docente,
+        'UPDATE',
+        NOW(),
+        CONCAT('Especialidade alterada de "', OLD.especialidade, '" para "', NEW.especialidade, '"')
+    );
+END$$
+DELIMITER ;
