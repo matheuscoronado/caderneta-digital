@@ -123,3 +123,29 @@ BEGIN
     SET NEW.data_anotacao = CURDATE();
 END$$
 DELIMITER ;
+
+-- Trigger para registrar alterações na tabela Usuario
+DELIMITER $$
+CREATE TRIGGER log_update_usuario
+AFTER UPDATE ON Usuario
+FOR EACH ROW
+BEGIN
+    -- Registrar alterações genéricas no Log_Alteracoes
+    INSERT INTO Log_Alteracoes (tabela, id_registro, acao, data_alteracao, detalhes)
+    VALUES (
+        'Usuario',
+        OLD.id_usuario,
+        'UPDATE',
+        NOW(),
+        CONCAT('Nome alterado de "', OLD.nome, '" para "', NEW.nome, '", ',
+               'Email alterado de "', OLD.email, '" para "', NEW.email, '", ',
+               'Tipo alterado de "', OLD.tipo_usuario, '" para "', NEW.tipo_usuario, '"')
+    );
+
+    -- Registrar alterações específicas de nome no Historico_Nomes
+    IF OLD.nome <> NEW.nome THEN
+        INSERT INTO Historico_Nomes (id_usuario, nome_antigo, nome_novo, data_alteracao)
+        VALUES (OLD.id_usuario, OLD.nome, NEW.nome, NOW());
+    END IF;
+END$$
+DELIMITER ;
