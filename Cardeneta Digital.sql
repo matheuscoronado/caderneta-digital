@@ -1,7 +1,9 @@
-create database cardeneta;
-use cardeneta;
+-- Criação do banco de dados
+CREATE DATABASE cardeneta;
+USE cardeneta;
 
- create table Usuario (
+-- Criação da tabela Usuario
+CREATE TABLE Usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -43,27 +45,14 @@ CREATE TABLE Docente (
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
 );
 
--- Criação da tabela Registro
-CREATE TABLE Registro (
-    id_registro INT PRIMARY KEY AUTO_INCREMENT,
-    id_aluno INT NOT NULL,
-    id_docente INT NOT NULL,
-    descricao_atividade TEXT,
-    data_registro DATE NOT NULL,
-    status ENUM('em andamento', 'concluido', 'reprovado') NOT NULL,
-    FOREIGN KEY (id_aluno) REFERENCES Aluno(id_aluno),
-    FOREIGN KEY (id_docente) REFERENCES Docente(id_docente)
-);
-
 -- Criação da tabela Anotacao
 CREATE TABLE Anotacao (
     id_anotacao INT PRIMARY KEY AUTO_INCREMENT,
     id_aluno INT NOT NULL,
-    id_registro INT NOT NULL,
     conteudo TEXT NOT NULL,
     data_anotacao DATE NOT NULL,
-    FOREIGN KEY (id_aluno) REFERENCES Aluno(id_aluno),
-    FOREIGN KEY (id_registro) REFERENCES Registro(id_registro)
+    status ENUM('em andamento', 'concluido', 'reprovado') NOT NULL,
+    FOREIGN KEY (id_aluno) REFERENCES Aluno(id_aluno)
 );
 
 -- Criação da tabela Feedback
@@ -76,5 +65,18 @@ CREATE TABLE Feedback (
     data_feedback DATE,
     FOREIGN KEY (id_anotacao) REFERENCES Anotacao(id_anotacao)
 );
+-- TRIGGERS
 
-SHOW TABLES;
+-- Trigger para validar nota no Feedback
+DELIMITER $$
+CREATE TRIGGER validate_feedback_nota
+BEFORE INSERT ON Feedback
+FOR EACH ROW
+BEGIN
+    IF NEW.nota > 10 THEN
+        SET NEW.nota = 10;
+    ELSEIF NEW.nota < 0 THEN
+        SET NEW.nota = 0;
+    END IF;
+END$$
+DELIMITER ;
