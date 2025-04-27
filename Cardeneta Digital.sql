@@ -167,3 +167,21 @@ BEGIN
     );
 END$$
 DELIMITER ;
+
+-- Trigger para registrar alterações na tabela Turma
+DELIMITER $$
+CREATE TRIGGER log_update_turma
+AFTER UPDATE ON Turma
+FOR EACH ROW
+BEGIN
+    INSERT INTO Log_Alteracoes (tabela, id_registro, acao, data_alteracao, detalhes)
+    VALUES (
+        'Turma',
+        OLD.id_turma,
+        'UPDATE',
+        NOW(),
+        CONCAT('Nome alterado de "', OLD.nome, '" para "', NEW.nome, '", ',
+               'Curso alterado de "', OLD.id_curso, '" para "', NEW.id_curso, '"')
+    );
+END$$
+DELIMITER ;
