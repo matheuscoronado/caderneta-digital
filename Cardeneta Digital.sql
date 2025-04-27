@@ -65,6 +65,17 @@ CREATE TABLE Feedback (
     data_feedback DATE,
     FOREIGN KEY (id_anotacao) REFERENCES Anotacao(id_anotacao)
 );
+
+-- Criação da tabela de Log para registrar alterações
+CREATE TABLE Log_Alteracoes (
+    id_log INT PRIMARY KEY AUTO_INCREMENT,
+    tabela VARCHAR(50) NOT NULL,
+    id_registro INT NOT NULL,
+    acao ENUM('INSERT', 'UPDATE', 'DELETE') NOT NULL,
+    data_alteracao DATETIME NOT NULL,
+    detalhes TEXT
+);
+
 -- TRIGGERS
 
 -- Trigger para validar nota no Feedback
