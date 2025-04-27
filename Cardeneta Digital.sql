@@ -238,3 +238,20 @@ BEGIN
 END$$
 DELIMITER ;
 
+-- Trigger para registrar alterações na tabela Feedback
+DELIMITER $$
+CREATE TRIGGER log_update_feedback
+AFTER UPDATE ON Feedback
+FOR EACH ROW
+BEGIN
+    INSERT INTO Log_Alteracoes (tabela, id_registro, acao, data_alteracao, detalhes)
+    VALUES (
+        'Feedback',
+        OLD.id_feedback,
+        'UPDATE',
+        NOW(),
+        CONCAT('Nota alterada de "', OLD.nota, '" para "', NEW.nota, '", ',
+               'Comentário alterado.')
+    );
+END$$
+DELIMITER ;
