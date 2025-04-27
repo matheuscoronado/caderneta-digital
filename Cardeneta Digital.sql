@@ -185,3 +185,21 @@ BEGIN
     );
 END$$
 DELIMITER ;
+
+-- Trigger para registrar alterações na tabela Aluno
+DELIMITER $$
+CREATE TRIGGER log_update_aluno
+AFTER UPDATE ON Aluno
+FOR EACH ROW
+BEGIN
+    INSERT INTO Log_Alteracoes (tabela, id_registro, acao, data_alteracao, detalhes)
+    VALUES (
+        'Aluno',
+        OLD.id_aluno,
+        'UPDATE',
+        NOW(),
+        CONCAT('Matrícula alterada de "', OLD.matricula, '" para "', NEW.matricula, '", ',
+               'Turma alterada de "', OLD.id_turma, '" para "', NEW.id_turma, '"')
+    );
+END$$
+DELIMITER ;
