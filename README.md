@@ -26,7 +26,16 @@ Este projeto visa substituir a caderneta física dos alunos por uma plataforma d
 - **Banco de Dados**: MySQL
 - **Ferramentas**: GitHub, VS Code
 
+
 ---
+
+## 🗂 Arquivo SQL
+
+Este repositório contém um arquivo SQL com a estrutura do banco de dados para a aplicação, incluindo triggers, tabelas e relacionamentos necessários para o funcionamento do projeto. O arquivo está disponível na raiz do repositório, com o nome **`Cardeneta Digital.sql`**.
+
+---
+
+
 
 ## 🧪 Protótipo Inicial
 
